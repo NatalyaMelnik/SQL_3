@@ -24,20 +24,25 @@ CREATE TABLE IF NOT EXISTS Track (
 id SERIAL PRIMARY KEY,
 name VARCHAR(85) UNIQUE NOT NULL,
 duration INTEGER,
-album_id INTEGER NOT NULL REFERENCES Album(id),
-compilation_id INTEGER NOT NULL REFERENCES Compilation(id)
+album_id INTEGER REFERENCES Album(id)
 );
 
 CREATE TABLE IF NOT EXISTS GenreExecutor (
-executor_id INTEGER NOT NULL REFERENCES Executor(id),
-genre_id INTEGER NOT NULL REFERENCES Genre(id),
+executor_id INTEGER REFERENCES Executor(id),
+genre_id INTEGER REFERENCES Genre(id),
 CONSTRAINT pk PRIMARY KEY (executor_id, genre_id)
 );
 
 CREATE TABLE IF NOT EXISTS ExecutorAlbum (
-executor_id INTEGER NOT NULL REFERENCES Executor(id),
-album_id INTEGER NOT NULL REFERENCES Album(id),
+executor_id INTEGER REFERENCES Executor(id),
+album_id INTEGER REFERENCES Album(id),
 CONSTRAINT pk2 PRIMARY KEY (executor_id, album_id)
+);
+
+CREATE TABLE IF NOT EXISTS CompilationTrack (
+compilation_id INTEGER references Compilation(id),
+track_id INTEGER references Track(id),
+CONSTRAINT pk3 PRIMARY KEY (compilation_id, track_id)
 );
 
 
